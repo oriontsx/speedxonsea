@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpeedX on Sea</title>
+  <meta name="description" content="A Telegram bot that runs allowlist and public mints, floor sweeps, and copytrades on the Base chain." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="bolt-canvas" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">SpeedX</a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a class="btn btn-small" href="https://t.me/speedxonseabot">Open bot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Telegram bot · Base</p>
+        <h1>Mint on Base without watching the clock.</h1>
+        <p class="subhead">SpeedX runs allowlist and public mints from a Telegram chat — multi-wallet, funded, and scheduled to fire the second a drop opens.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
+          <a class="btn btn-ghost" href="#how">See how it works</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="section-inner">
+        <h2 class="section-title">What it does</h2>
+        <div class="feature-grid">
+          <article class="card">
+            <h3>Allowlist &amp; public mints</h3>
+            <p>Pick a collection, pick your mode. SpeedX verifies eligibility per wallet, handles auth, funds, and queues the mint. Built around OpenSea SeaDrop.</p>
+          </article>
+          <article class="card">
+            <h3>Scheduled fires</h3>
+            <p>Set the open time and walk away. The mint goes out on the block you asked for, not whenever you remember.</p>
+          </article>
+          <article class="card">
+            <h3>Floor sweeps</h3>
+            <p>Buy the cheapest N from any collection in one command, with a price ceiling you set.</p>
+          </article>
+          <article class="card">
+            <h3>Copytrade</h3>
+            <p>Point it at a wallet. When they buy, you buy — the same item, in real time.</p>
+          </article>
+          <article class="card">
+            <h3>Multi-wallet</h3>
+            <p>Generate fresh wallets or import your own. Fund them, run them together, sweep everything back to one address when you're done.</p>
+          </article>
+          <article class="card">
+            <h3>Listings &amp; offers</h3>
+            <p>List your items or accept the top offer across every wallet at once.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="how">
+      <div class="section-inner">
+        <h2 class="section-title">How it works</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <h3>Get in</h3>
+              <p>Message the bot to pair. Access is gated, so it's not a public free-for-all.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <h3>Load wallets</h3>
+              <p>Generate or import keys, then fund them in a few taps.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <h3>Run it</h3>
+              <p>Choose the drop, the mode, and the time. SpeedX does the rest and reports back.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-inner">
+        <h2>It's already running.</h2>
+        <p>The bot lives on Telegram. If you've got access, open it. If you don't, ask.</p>
+        <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-lead">SpeedX on Sea — a mint tool for Base.</p>
+      <p class="footer-disclaimer">Not affiliated with OpenSea or Base. Minting and trading carry risk; you're responsible for your own keys and transactions.</p>
+      <p class="footer-copy">© SpeedX</p>
+    </div>
+  </footer>
+
+  <script type="module" src="lightning.js"></script>
+</body>
+</html>
