@@ -371,11 +371,9 @@ h1 {
   .feature-grid {
     grid-template-columns: 1fr;
   }
-  .nav-links {
-    gap: 1rem;
-  }
+  /* Collapse nav on small screens — keep the brand + the Open bot button */
   .nav-links a:not(.btn) {
-    font-size: 0.875rem;
+    display: none;
   }
   .section-inner,
   .cta-inner {
