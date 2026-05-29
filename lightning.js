@@ -169,7 +169,7 @@ let running = true;
 let frameId = null; // guards against spawning a second RAF loop on re-show
 document.addEventListener('visibilitychange', () => {
   running = !document.hidden;
-  if (running && frameId === null && !reducedMotion) animate();
+  if (running && frameId === null) animate();
 });
 
 const clock = new THREE.Clock();
@@ -190,7 +190,8 @@ function animate() {
   const scrollNorm = scrollY / Math.max(1, window.innerHeight);
 
   if (reducedMotion) {
-    // Static glowing bolt, no motion.
+    // Honor reduced-motion: keep a gentle idle rotation only, no flicker/pulse/parallax.
+    bolt.rotation.y = t * 0.12;
     render();
     return;
   }
@@ -217,10 +218,5 @@ function animate() {
   render();
 }
 
-// Reduced motion: render one static frame; otherwise start loop.
-if (reducedMotion) {
-  bolt.rotation.y = 0.35;
-  render();
-} else {
-  animate();
-}
+// Always start the loop; it self-limits motion when reduced-motion is set.
+animate();

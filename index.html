@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpeedX on Sea</title>
+  <title>SpeedX on Sea — mint on Base without watching the clock</title>
   <meta name="description" content="A Telegram bot that runs allowlist and public mints, floor sweeps, and copytrades on the Base chain." />
 
+  <meta property="og:title" content="SpeedX on Sea" />
+  <meta property="og:description" content="A Telegram bot for allowlist & public mints, floor sweeps, and copytrades on Base." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#05060a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230052ff'/%3E%3Cpath d='M19 4 L9 17 L15 17 L12.5 24 L23 11.5 L16.5 11.5 Z' fill='%235ef0ff'/%3E%3Cpath d='M5 27 q3 -3.6 6 0 t6 0 t6 0' fill='none' stroke='%23bfeeff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+  <!-- Mark JS as available BEFORE paint so scroll-reveal only hides content when JS can reveal it -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -23,14 +35,24 @@
 </head>
 <body>
   <canvas id="bolt-canvas" aria-hidden="true"></canvas>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <header class="nav">
+  <header class="nav" id="nav">
     <div class="nav-inner">
-      <a class="brand" href="#top">SpeedX</a>
+      <a class="brand" href="#top" aria-label="SpeedX on Sea — home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 4 L9 17 L15 17 L12.5 24 L23 11.5 L16.5 11.5 Z" fill="#5ef0ff"/>
+            <path d="M5 27 q3 -3.6 6 0 t6 0 t6 0" fill="none" stroke="#2ad8ff" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">SpeedX<span class="brand-sub">on&nbsp;Sea</span></span>
+      </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
-        <a class="btn btn-small" href="https://t.me/speedxonseabot">Open bot</a>
+        <a class="btn btn-small" href="https://t.me/speedxonseabot">Open bot ↗</a>
       </nav>
     </div>
   </header>
@@ -38,41 +60,104 @@
   <main id="top">
     <section class="hero">
       <div class="hero-inner">
-        <p class="eyebrow">Telegram bot · Base</p>
-        <h1>Mint on Base without watching the clock.</h1>
-        <p class="subhead">SpeedX runs allowlist and public mints from a Telegram chat — multi-wallet, funded, and scheduled to fire the second a drop opens.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
-          <a class="btn btn-ghost" href="#how">See how it works</a>
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal>
+            <span class="eyebrow-dot" aria-hidden="true"></span>Telegram bot · Base mainnet
+          </p>
+          <h1 data-reveal style="--d:1">
+            Mint on Base<br />without watching <span class="grad">the clock.</span>
+          </h1>
+          <p class="subhead" data-reveal style="--d:2">
+            SpeedX runs allowlist and public mints straight from a Telegram chat —
+            multi-wallet, funded, and scheduled to fire the second a drop opens.
+          </p>
+          <div class="hero-actions" data-reveal style="--d:3">
+            <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+          <ul class="stats" data-reveal style="--d:4">
+            <li>
+              <span class="stat-num">&lt;1<span class="stat-unit">blk</span></span>
+              <span class="stat-label">mint latency</span>
+            </li>
+            <li>
+              <span class="stat-num">∞<span class="stat-unit">wallets</span></span>
+              <span class="stat-label">run in parallel</span>
+            </li>
+            <li>
+              <span class="stat-num">24/7</span>
+              <span class="stat-label">scheduled fires</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" data-reveal style="--d:3">
+          <div class="chat" role="img" aria-label="Example SpeedX bot conversation: scheduling a mint that fires on open and confirms minted.">
+            <div class="chat-head">
+              <span class="chat-avatar" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 4 L9 17 L15 17 L12.5 24 L23 11.5 L16.5 11.5 Z" fill="#5ef0ff"/>
+                  <path d="M5 27 q3 -3.6 6 0 t6 0 t6 0" fill="none" stroke="#2ad8ff" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="chat-id">
+                <strong>SpeedX</strong>
+                <span class="chat-handle">@speedxonseabot</span>
+              </span>
+              <span class="chat-status"><span class="chat-pulse" aria-hidden="true"></span>online</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-out">/mint basedapes --mode public --at 18:00:00</div>
+              <div class="msg msg-in">
+                <span class="msg-line">Drop locked — <b>BasedApes</b> · SeaDrop</span>
+                <span class="msg-line muted">3 wallets armed · gas auto · scheduled 18:00:00</span>
+              </div>
+              <div class="msg msg-in msg-ok">
+                <span class="msg-line"><span class="tick" aria-hidden="true">✓</span> Minted on block #14820391</span>
+                <span class="msg-line muted">3/3 wallets · 0.012 ETH · 1.4s after open</span>
+              </div>
+            </div>
+            <div class="chat-input" aria-hidden="true">
+              <span>Message SpeedX…</span>
+              <span class="send">➤</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="features" class="features">
       <div class="section-inner">
-        <h2 class="section-title">What it does</h2>
+        <p class="section-kicker" data-reveal>// capabilities</p>
+        <h2 class="section-title" data-reveal style="--d:1">Everything a drop needs, in one chat.</h2>
         <div class="feature-grid">
-          <article class="card">
+          <article class="card" data-reveal>
+            <span class="card-idx">01</span>
             <h3>Allowlist &amp; public mints</h3>
             <p>Pick a collection, pick your mode. SpeedX verifies eligibility per wallet, handles auth, funds, and queues the mint. Built around OpenSea SeaDrop.</p>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:1">
+            <span class="card-idx">02</span>
             <h3>Scheduled fires</h3>
             <p>Set the open time and walk away. The mint goes out on the block you asked for, not whenever you remember.</p>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:2">
+            <span class="card-idx">03</span>
             <h3>Floor sweeps</h3>
             <p>Buy the cheapest N from any collection in one command, with a price ceiling you set.</p>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:3">
+            <span class="card-idx">04</span>
             <h3>Copytrade</h3>
             <p>Point it at a wallet. When they buy, you buy — the same item, in real time.</p>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:4">
+            <span class="card-idx">05</span>
             <h3>Multi-wallet</h3>
             <p>Generate fresh wallets or import your own. Fund them, run them together, sweep everything back to one address when you're done.</p>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:5">
+            <span class="card-idx">06</span>
             <h3>Listings &amp; offers</h3>
             <p>List your items or accept the top offer across every wallet at once.</p>
           </article>
@@ -82,23 +167,24 @@
 
     <section id="how" class="how">
       <div class="section-inner">
-        <h2 class="section-title">How it works</h2>
+        <p class="section-kicker" data-reveal>// three steps</p>
+        <h2 class="section-title" data-reveal style="--d:1">From chat to minted.</h2>
         <ol class="steps">
-          <li class="step">
+          <li class="step" data-reveal>
             <span class="step-num">01</span>
             <div class="step-body">
               <h3>Get in</h3>
               <p>Message the bot to pair. Access is gated, so it's not a public free-for-all.</p>
             </div>
           </li>
-          <li class="step">
+          <li class="step" data-reveal style="--d:1">
             <span class="step-num">02</span>
             <div class="step-body">
               <h3>Load wallets</h3>
               <p>Generate or import keys, then fund them in a few taps.</p>
             </div>
           </li>
-          <li class="step">
+          <li class="step" data-reveal style="--d:2">
             <span class="step-num">03</span>
             <div class="step-body">
               <h3>Run it</h3>
@@ -110,22 +196,55 @@
     </section>
 
     <section class="cta">
-      <div class="cta-inner">
+      <div class="cta-inner" data-reveal>
         <h2>It's already running.</h2>
         <p>The bot lives on Telegram. If you've got access, open it. If you don't, ask.</p>
-        <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
+        <a class="btn btn-primary btn-lg" href="https://t.me/speedxonseabot">Open in Telegram</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      <p class="footer-lead">SpeedX on Sea — a mint tool for Base.</p>
+      <div class="footer-top">
+        <a class="brand brand-footer" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4 L9 17 L15 17 L12.5 24 L23 11.5 L16.5 11.5 Z" fill="#5ef0ff"/>
+              <path d="M5 27 q3 -3.6 6 0 t6 0 t6 0" fill="none" stroke="#2ad8ff" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand-text">SpeedX<span class="brand-sub">on&nbsp;Sea</span></span>
+        </a>
+        <a class="footer-link" href="https://t.me/speedxonseabot">@speedxonseabot ↗</a>
+      </div>
       <p class="footer-disclaimer">Not affiliated with OpenSea or Base. Minting and trading carry risk; you're responsible for your own keys and transactions.</p>
-      <p class="footer-copy">© SpeedX</p>
+      <p class="footer-copy">© SpeedX on Sea — a mint tool for Base.</p>
     </div>
   </footer>
 
   <script type="module" src="lightning.js"></script>
+  <script>
+    /* Scroll reveals + nav elevation. Kept tiny and dependency-free. */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var nav = document.getElementById('nav');
+      var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      var items = document.querySelectorAll('[data-reveal]');
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </body>
 </html>
