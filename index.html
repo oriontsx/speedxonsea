@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <canvas class="page-bolt" id="heroBolt" width="360" height="360" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
 
@@ -50,7 +51,6 @@
     <!-- HERO -->
     <section class="hero">
       <div class="speedgrid" aria-hidden="true"></div>
-      <canvas class="hero-bolt" id="heroBolt" width="360" height="360" aria-hidden="true"></canvas>
       <div class="hero-inner">
         <div class="hero-copy">
           <p class="eyebrow" data-reveal>
@@ -396,8 +396,11 @@
         if (!img || !img.complete || !img.naturalWidth) return;
         current = i;
         window.__heroFrame = i;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var cw = canvas.width, ch = canvas.height;
+        ctx.clearRect(0, 0, cw, ch);
+        // draw the square bolt centered, preserving aspect (no stretch on the wide viewport)
+        var s = Math.min(cw, ch) * 1.25;
+        ctx.drawImage(img, (cw - s) / 2, (ch - s) / 2, s, s);
       }
 
       // Map scroll position to a looping frame index over one viewport-ish range.

@@ -161,13 +161,14 @@ h1 { letter-spacing: -0.03em; }
   min-height: 90vh;
   display: flex; flex-direction: column;
 }
-.hero-bolt {
-  position: absolute; z-index: 0; pointer-events: none; user-select: none;
-  right: -7%; top: 44%; transform: translateY(-50%);
-  width: min(820px, 60vw); height: min(820px, 60vw); opacity: 0.9;
-  mix-blend-mode: screen; display: block;
-  filter: drop-shadow(0 0 90px rgba(59, 140, 255, .55)) drop-shadow(0 0 34px rgba(42, 216, 255, .5));
+/* Full-screen fixed background: the rotating bolt sits behind all content. */
+.page-bolt {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; user-select: none;
+  width: 100vw; height: 100vh; display: block; opacity: 0.5;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 110px rgba(59, 140, 255, .5)) drop-shadow(0 0 40px rgba(42, 216, 255, .42));
 }
+main { position: relative; z-index: 1; }
 .hero-inner {
   position: relative; z-index: 1; width: 100%; flex: 1 1 auto;
   max-width: var(--maxw); margin: 0 auto; padding: 2.5rem 1.5rem 2rem;
@@ -362,5 +363,5 @@ h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); margin-bottom: 1.5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .eyebrow-dot { animation: none; } }
 
 @media (max-width: 900px) {
-  .hero-bolt { width: 340px; height: 340px; right: -12%; top: 38%; opacity: 0.28; }
+  .page-bolt { opacity: 0.34; }
 }
