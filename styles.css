@@ -164,9 +164,9 @@ h1 { letter-spacing: -0.03em; }
 /* Full-screen fixed background: the rotating bolt sits behind all content. */
 .page-bolt {
   position: fixed; inset: 0; z-index: 0; pointer-events: none; user-select: none;
-  width: 100vw; height: 100vh; display: block; opacity: 0.5;
+  width: 100vw; height: 100vh; display: block; opacity: 0.3;
   mix-blend-mode: screen;
-  filter: drop-shadow(0 0 110px rgba(59, 140, 255, .5)) drop-shadow(0 0 40px rgba(42, 216, 255, .42));
+  filter: drop-shadow(0 0 120px rgba(59, 140, 255, .4)) drop-shadow(0 0 44px rgba(42, 216, 255, .34));
 }
 main { position: relative; z-index: 1; }
 .hero-inner {
@@ -363,5 +363,5 @@ h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); margin-bottom: 1.5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .eyebrow-dot { animation: none; } }
 
 @media (max-width: 900px) {
-  .page-bolt { opacity: 0.34; }
+  .page-bolt { opacity: 0.24; }
 }

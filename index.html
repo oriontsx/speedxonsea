@@ -398,37 +398,37 @@
         window.__heroFrame = i;
         var cw = canvas.width, ch = canvas.height;
         ctx.clearRect(0, 0, cw, ch);
-        // draw the square bolt centered, preserving aspect (no stretch on the wide viewport)
-        var s = Math.min(cw, ch) * 1.25;
+        // cover the full viewport (square frame scaled to the larger dimension), centered
+        var s = Math.max(cw, ch) * 0.98;
         ctx.drawImage(img, (cw - s) / 2, (ch - s) / 2, s, s);
       }
 
-      // Map scroll position to a looping frame index over one viewport-ish range.
-      function frameForScroll() {
-        var range = window.innerHeight * 1.6;
-        var t = window.scrollY / range;            // 0..n
-        var idx = Math.round(t * (FRAMES - 1));     // advance with scroll
-        idx = ((idx % FRAMES) + FRAMES) % FRAMES;   // loop both directions
-        return idx;
+      // Continuous auto-rotation; scroll position adds extra spin (scroll-interactive).
+      var scrollOffset = 0;
+      function computeScrollOffset() {
+        var range = window.innerHeight * 1.4;
+        return (window.scrollY / range) * (FRAMES - 1);
       }
-
-      var ticking = false;
-      function onScroll() {
-        if (ticking || reduce) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          var i = frameForScroll();
-          if (i !== current) draw(i);
-          ticking = false;
-        });
+      var auto = 0;
+      function tick() {
+        if (!reduce) {
+          auto += 0.25; // ~3.2s per full rotation at 60fps
+          var idx = Math.round(auto + scrollOffset);
+          idx = ((idx % FRAMES) + FRAMES) % FRAMES;
+          if (idx !== current) draw(idx);
+        }
+        requestAnimationFrame(tick);
       }
+      function onScroll() { scrollOffset = computeScrollOffset(); }
 
       function start() {
         fit();
         if (reduce) { draw(0); return; }
-        draw(frameForScroll());
+        scrollOffset = computeScrollOffset();
+        draw(((Math.round(scrollOffset) % FRAMES) + FRAMES) % FRAMES);
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', function () { fit(); draw(current < 0 ? 0 : current); }, { passive: true });
+        requestAnimationFrame(tick);
       }
 
       for (var i = 0; i < FRAMES; i++) {
@@ -436,9 +436,8 @@
           var img = new Image();
           img.onload = function () {
             loaded++;
-            if (loaded === 1) start();        // wire up listeners asap
-            // draw the frame the scroll position currently wants, the moment it's available
-            if (n === (reduce ? 0 : frameForScroll())) draw(n);
+            if (loaded === 1) start();        // wire up listeners + start the rAF loop
+            if (reduce && n === 0) draw(0);    // static first frame for reduced-motion
           };
           img.src = 'assets/bolt-frames/f' + pad(n) + '.png';
           frames[n] = img;
