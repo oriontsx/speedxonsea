@@ -162,12 +162,15 @@ h1 { letter-spacing: -0.03em; }
   min-height: 90vh;
   display: flex; flex-direction: column;
 }
-/* Full-screen fixed background: the rotating bolt sits behind all content. */
+/* Full-screen fixed background: the three.js rotating bolt sits behind all content. */
 .page-bolt {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none; user-select: none;
-  width: 100vw; height: 100vh; display: block; opacity: 0.3;
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 120px rgba(59, 140, 255, .4)) drop-shadow(0 0 44px rgba(42, 216, 255, .34));
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  width: 100vw; height: 100vh; display: block;
+}
+/* Subtle dark scrim between the 3D scene and the content for readability. */
+.bolt-scrim {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: rgba(7, 8, 11, 0.5);
 }
 main { position: relative; z-index: 1; }
 .hero-inner {
@@ -285,28 +288,6 @@ h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); margin-bottom: 1.5rem; }
 .price-note { color: var(--muted); font-size: 0.92rem; margin: 0; }
 .price-cta { margin-top: 2.2rem; }
 
-/* ---- Security ---- */
-.sec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
-.sec-copy { position: relative; }
-.sec-copy .section-no { display: block; margin-bottom: 0.6rem; }
-.sec-copy .section-lead { margin-bottom: 0; }
-.sec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 3px; }
-.sec-list li { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1.2rem 1.3rem; background: var(--bg2); }
-.sec-mark { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 2px; background: var(--accent-dim); color: var(--accent); font-weight: 700; font-size: 0.82rem; border: 1px solid rgba(59, 140, 255,0.3); }
-.sec-list b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.01em; }
-.sec-list span { color: var(--muted); font-size: 0.9rem; }
-
-/* ---- FAQ ---- */
-.faq-list { display: flex; flex-direction: column; gap: 0.7rem; max-width: 840px; }
-.qa { border: 1px solid var(--line); border-radius: 3px; background: var(--bg2); overflow: hidden; transition: border-color 0.2s var(--ease); }
-.qa[open] { border-color: rgba(59, 140, 255,0.35); }
-.qa summary { list-style: none; cursor: pointer; padding: 1.2rem 1.3rem; font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; text-transform: uppercase; letter-spacing: 0.01em; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-.qa summary::-webkit-details-marker { display: none; }
-.qa summary::after { content: "+"; font-family: var(--font-mono); color: var(--accent); font-size: 1.3rem; line-height: 1; transition: transform 0.25s var(--ease); }
-.qa[open] summary::after { transform: rotate(45deg); }
-.qa p { margin: 0; padding: 0 1.3rem 1.3rem; color: var(--muted); font-size: 0.96rem; }
-.qa a { color: var(--accent); }
-
 /* ---- CTA ---- */
 .cta { position: relative; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .speedgrid-cta::before { bottom: -30%; height: 150%; }
@@ -344,7 +325,6 @@ h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); margin-bottom: 1.5rem; }
   .trust-item:nth-child(1), .trust-item:nth-child(2) { border-bottom: 1px solid var(--line); }
   .net-grid { grid-template-columns: repeat(3, 1fr); }
   .price-grid { grid-template-columns: 1fr; }
-  .sec-grid { grid-template-columns: 1fr; gap: 2rem; }
   .section-inner { padding: 5rem 1.5rem; }
 }
 @media (max-width: 600px) {
@@ -361,8 +341,9 @@ h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); margin-bottom: 1.5rem; }
   .hero-inner { padding: 4rem 1.25rem 2rem; }
   .net-ticker { padding: 1rem 1.25rem 2.5rem; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .eyebrow-dot { animation: none; } }
-
+/* On narrow screens the bolt fills the viewport, so deepen the scrim for legibility. */
 @media (max-width: 900px) {
-  .page-bolt { opacity: 0.24; }
+  .bolt-scrim { background: rgba(7, 8, 11, 0.62); }
 }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .eyebrow-dot { animation: none; } }

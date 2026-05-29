@@ -33,7 +33,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure = 0.85;
 
 // --- Lightning bolt mesh ---
 const pts = [
@@ -63,8 +63,8 @@ boltGeo.center();
 
 const boltMat = new THREE.MeshStandardMaterial({
   color: 0x0a1a3a,
-  emissive: new THREE.Color(0x2ad8ff),
-  emissiveIntensity: 1.6,
+  emissive: new THREE.Color(0x2a5cff),
+  emissiveIntensity: 1.15,
   metalness: 0.7,
   roughness: 0.25,
 });
@@ -83,8 +83,8 @@ const haloMat = new THREE.SpriteMaterial({
     c.width = c.height = s;
     const ctx = c.getContext('2d');
     const g = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-    g.addColorStop(0, 'rgba(42,216,255,0.55)');
-    g.addColorStop(0.4, 'rgba(0,82,255,0.22)');
+    g.addColorStop(0, 'rgba(59,140,255,0.34)');
+    g.addColorStop(0.4, 'rgba(0,82,255,0.14)');
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, s, s);
@@ -104,7 +104,7 @@ scene.add(new THREE.AmbientLight(0x223355, 0.6));
 const blueLight = new THREE.PointLight(0x0052ff, 60, 30);
 blueLight.position.set(-4, 3, 5);
 scene.add(blueLight);
-const cyanLight = new THREE.PointLight(0x2ad8ff, 55, 30);
+const cyanLight = new THREE.PointLight(0x4d9bff, 55, 30);
 cyanLight.position.set(4, -2, 4);
 scene.add(cyanLight);
 
@@ -122,7 +122,7 @@ const pMat = new THREE.PointsMaterial({
   color: 0x2ad8ff,
   size: 0.04,
   transparent: true,
-  opacity: 0.5,
+  opacity: 0.3,
   blending: THREE.AdditiveBlending,
   depthWrite: false,
 });
@@ -137,7 +137,7 @@ try {
   composer.addPass(new RenderPass(scene, camera));
   const bloom = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    1.2,
+    0.5,
     0.6,
     0.1
   );
@@ -192,17 +192,19 @@ function animate() {
   if (reducedMotion) {
     // Honor reduced-motion: keep a gentle idle rotation only, no flicker/pulse/parallax.
     bolt.rotation.y = t * 0.12;
+    window.__boltRotY = bolt.rotation.y;
     render();
     return;
   }
 
   // Idle slow Y rotation + scroll-driven turn
   bolt.rotation.y = t * 0.18 + scrollNorm * 0.9;
+  window.__boltRotY = bolt.rotation.y;
   // Subtle breathing pulse
   const pulse = 2.4 + Math.sin(t * 1.3) * 0.04;
   bolt.scale.setScalar(pulse);
   // Emissive flicker
-  boltMat.emissiveIntensity = 1.5 + Math.sin(t * 2.2) * 0.25;
+  boltMat.emissiveIntensity = 1.15 + Math.sin(t * 2.2) * 0.2;
 
   // Parallax drift on scroll
   bolt.position.y = scrollNorm * 0.6;
