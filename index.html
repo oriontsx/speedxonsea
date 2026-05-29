@@ -433,8 +433,9 @@
           var img = new Image();
           img.onload = function () {
             loaded++;
-            if (loaded === 1) start();        // show first available frame asap
-            if (n === current) draw(n);        // refresh if this was the target
+            if (loaded === 1) start();        // wire up listeners asap
+            // draw the frame the scroll position currently wants, the moment it's available
+            if (n === (reduce ? 0 : frameForScroll())) draw(n);
           };
           img.src = 'assets/bolt-frames/f' + pad(n) + '.png';
           frames[n] = img;

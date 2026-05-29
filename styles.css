@@ -163,10 +163,10 @@ h1 { letter-spacing: -0.03em; }
 }
 .hero-bolt {
   position: absolute; z-index: 0; pointer-events: none; user-select: none;
-  right: -3%; top: 50%; transform: translateY(-50%);
-  width: min(680px, 52vw); height: min(680px, 52vw); opacity: 0.82;
+  right: -7%; top: 44%; transform: translateY(-50%);
+  width: min(820px, 60vw); height: min(820px, 60vw); opacity: 0.9;
   mix-blend-mode: screen; display: block;
-  filter: drop-shadow(0 0 80px rgba(59, 140, 255, .5)) drop-shadow(0 0 30px rgba(42, 216, 255, .45));
+  filter: drop-shadow(0 0 90px rgba(59, 140, 255, .55)) drop-shadow(0 0 34px rgba(42, 216, 255, .5));
 }
 .hero-inner {
   position: relative; z-index: 1; width: 100%; flex: 1 1 auto;
