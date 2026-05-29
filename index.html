@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpeedX on Sea — mint, sweep &amp; copytrade across every OpenSea network</title>
-  <meta name="description" content="A Telegram bot that runs allowlist & public mints, floor sweeps, and copytrades across every OpenSea-supported network — multi-wallet, scheduled, non-custodial." />
-  <meta property="og:title" content="SpeedX on Sea" />
-  <meta property="og:description" content="Mint, sweep, and copytrade across every OpenSea network — from Telegram. Multi-wallet, scheduled, non-custodial." />
+  <title>SpeedX — multi-chain NFT mint &amp; trade bot for every OpenSea network</title>
+  <meta name="description" content="SpeedX is a Telegram bot that runs allowlist & public mints, floor sweeps, mass-list, accept-offers and copy-trade across every OpenSea network — multi-wallet, scheduled, non-custodial. Premium in USDC on Base." />
+  <meta property="og:title" content="SpeedX — mint & trade at full throttle" />
+  <meta property="og:description" content="Mint, sweep, list and copy-trade across every OpenSea network — from Telegram. Multi-wallet, scheduled, non-custodial." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#070a11" />
+  <meta name="theme-color" content="#07080B" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 
   <script>document.documentElement.classList.add('js');</script>
@@ -17,26 +17,29 @@
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg" aria-hidden="true"></div>
-  <div class="grid-overlay" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
     <div class="nav-inner">
-      <a class="brand" href="#top" aria-label="SpeedX on Sea — home">
-        <img class="brand-mark" src="assets/logo-bolt.png" alt="" width="34" height="34" />
-        <span class="brand-text">SpeedX<span class="brand-sub">on&nbsp;sea</span></span>
+      <a class="brand" href="#top" aria-label="SpeedX — home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 32" width="22" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5 0 0 18.5h8.2L6 32 24 11.5h-9.4L18 0z" fill="#3B8CFF"/>
+          </svg>
+        </span>
+        <span class="brand-text">SpeedX<span class="brand-sub">/ on&nbsp;sea</span></span>
       </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#networks">Networks</a>
-        <a href="#security">Security</a>
+        <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a class="btn btn-small" href="https://t.me/speedxonseabot">Open bot ↗</a>
       </nav>
@@ -46,34 +49,53 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
+      <div class="speedgrid" aria-hidden="true"></div>
+      <canvas class="hero-bolt" id="heroBolt" width="360" height="360" aria-hidden="true"></canvas>
       <div class="hero-inner">
         <div class="hero-copy">
           <p class="eyebrow" data-reveal>
-            <span class="eyebrow-dot" aria-hidden="true"></span>Telegram bot · every OpenSea network
+            <span class="eyebrow-dot" aria-hidden="true"></span>STATUS: LIVE — TELEGRAM BOT
           </p>
           <h1 data-reveal style="--d:1">
-            Mint, sweep &amp; copytrade across <span class="grad">every OpenSea network.</span>
+            Mint &amp; trade at <span class="accent">full throttle</span> across every OpenSea network.
           </h1>
           <p class="subhead" data-reveal style="--d:2">
-            SpeedX runs allowlist and public mints, floor sweeps, and copytrades from a Telegram chat —
-            multi-wallet, funded, and scheduled to fire the moment a drop opens. Wherever OpenSea goes, it goes.
+            SpeedX fires allowlist and public mints, sweeps floors, mass-lists and accepts offers, and
+            copy-trades — all from a Telegram chat. Multi-wallet, funded, and scheduled to launch the moment a drop opens.
           </p>
           <div class="hero-actions" data-reveal style="--d:3">
-            <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open in Telegram</a>
-            <a class="btn btn-ghost" href="#how">See how it works</a>
+            <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open bot →</a>
+            <a class="btn btn-ghost" href="#how">How it works</a>
           </div>
-          <ul class="net-strip" data-reveal style="--d:4" aria-label="Supported networks">
-            <li>Ethereum</li><li>Base</li><li>Polygon</li><li>Arbitrum</li>
-            <li>Optimism</li><li>Zora</li><li>Blast</li><li class="more">+ more</li>
-          </ul>
+
+          <dl class="readout" data-reveal style="--d:4" aria-label="Live readouts">
+            <div class="readout-cell">
+              <dt>// chains</dt><dd>9<span class="ro-plus">+</span></dd>
+            </div>
+            <div class="readout-cell">
+              <dt>// wallets</dt><dd>multi</dd>
+            </div>
+            <div class="readout-cell">
+              <dt>// custody</dt><dd>yours</dd>
+            </div>
+            <div class="readout-cell">
+              <dt>// fire</dt><dd>on&nbsp;open</dd>
+            </div>
+          </dl>
         </div>
 
         <div class="hero-visual" data-reveal style="--d:3">
-          <div class="chat" role="img" aria-label="Example SpeedX bot conversation: scheduling a mint that fires on open and confirms minted across wallets.">
+          <div class="panel chat" role="img" aria-label="Example SpeedX bot conversation: scheduling a mint that fires on open and confirms minted across wallets.">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-tr" aria-hidden="true"></span>
+            <span class="tick-bl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <div class="chat-head">
-              <img class="chat-avatar" src="assets/logo-bolt.png" alt="" width="34" height="34" />
+              <span class="chat-marble" aria-hidden="true">
+                <svg viewBox="0 0 24 32" width="16" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.5 0 0 18.5h8.2L6 32 24 11.5h-9.4L18 0z" fill="#07080B"/>
+                </svg>
+              </span>
               <span class="chat-id"><strong>SpeedX</strong><span class="chat-handle">@speedxonseabot</span></span>
-              <span class="chat-status"><span class="chat-pulse" aria-hidden="true"></span>online</span>
+              <span class="chat-status"><span class="chat-pulse" aria-hidden="true"></span>LIVE</span>
             </div>
             <div class="chat-body">
               <div class="msg msg-out">/mint azukielementals --chain base --mode public --at 18:00:00</div>
@@ -83,59 +105,77 @@
               </div>
               <div class="msg msg-in msg-ok">
                 <span class="msg-line"><span class="tick" aria-hidden="true">✓</span> Minted on block #14820391</span>
-                <span class="msg-line muted">3/3 wallets · 0.012 ETH · 1.4s after open</span>
+                <span class="msg-line muted">3/3 wallets · 0.012 ETH · +1.4s after open</span>
               </div>
             </div>
-            <div class="chat-input" aria-hidden="true"><span>Message SpeedX…</span><span class="send">➤</span></div>
+            <div class="chat-input" aria-hidden="true"><span>Message SpeedX…</span><span class="send">→</span></div>
           </div>
         </div>
+      </div>
+      <div class="net-ticker" data-reveal style="--d:5" aria-label="Supported networks">
+        <span class="ticker-label">// COVERAGE</span>
+        <ul>
+          <li>Ethereum</li><li>Base</li><li>Polygon</li><li>Arbitrum</li>
+          <li>Optimism</li><li>Zora</li><li>Blast</li><li class="more">+ more</li>
+        </ul>
       </div>
     </section>
 
     <!-- TRUST BAR -->
     <section class="trust" aria-label="At a glance">
       <div class="trust-inner">
-        <div class="trust-item" data-reveal><span class="t-k">Non-custodial</span><span class="t-v">you hold the keys</span></div>
-        <div class="trust-item" data-reveal style="--d:1"><span class="t-k">OpenSea SeaDrop</span><span class="t-v">native mint flow</span></div>
-        <div class="trust-item" data-reveal style="--d:2"><span class="t-k">Every OpenSea chain</span><span class="t-v">one bot, all networks</span></div>
-        <div class="trust-item" data-reveal style="--d:3"><span class="t-k">Gated access</span><span class="t-v">not a public free-for-all</span></div>
+        <div class="trust-item" data-reveal><span class="t-k">Non-custodial</span><span class="t-v">// you hold the keys</span></div>
+        <div class="trust-item" data-reveal style="--d:1"><span class="t-k">SeaDrop native</span><span class="t-v">// OpenSea mint flow</span></div>
+        <div class="trust-item" data-reveal style="--d:2"><span class="t-k">Every chain</span><span class="t-v">// one bot, all networks</span></div>
+        <div class="trust-item" data-reveal style="--d:3"><span class="t-k">Gated access</span><span class="t-v">// not a free-for-all</span></div>
       </div>
     </section>
 
     <!-- FEATURES -->
     <section id="features" class="section features">
       <div class="section-inner">
-        <p class="section-kicker" data-reveal>// capabilities</p>
-        <h2 class="section-title" data-reveal style="--d:1">Everything a drop needs, in one chat.</h2>
+        <header class="section-head">
+          <span class="section-no" data-reveal aria-hidden="true">01</span>
+          <div>
+            <p class="section-kicker" data-reveal>// capabilities</p>
+            <h2 class="section-title" data-reveal style="--d:1">Everything a drop needs, in one chat.</h2>
+          </div>
+        </header>
         <div class="feature-grid">
-          <article class="card" data-reveal>
+          <article class="panel card" data-reveal>
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">01</span>
             <h3>Allowlist &amp; public mints</h3>
             <p>Pick a collection, pick your mode. SpeedX verifies eligibility per wallet, handles auth and funds, and queues the mint — built around OpenSea SeaDrop.</p>
           </article>
-          <article class="card" data-reveal style="--d:1">
+          <article class="panel card" data-reveal style="--d:1">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">02</span>
             <h3>Scheduled fires</h3>
-            <p>Set the open time and walk away. The mint goes out on the block you asked for — not whenever you remember to hit the button.</p>
+            <p>Set the open time and walk away. The mint launches on the block you asked for — not whenever you remember to hit the button.</p>
           </article>
-          <article class="card" data-reveal style="--d:2">
+          <article class="panel card" data-reveal style="--d:2">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">03</span>
             <h3>Floor sweeps</h3>
             <p>Buy the cheapest N from any collection in a single command, with a price ceiling you set. Works on every supported chain.</p>
           </article>
-          <article class="card" data-reveal style="--d:3">
+          <article class="panel card" data-reveal style="--d:3">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">04</span>
-            <h3>Copytrade</h3>
+            <h3>Copy-trade</h3>
             <p>Point it at a wallet. When they buy, you buy — the same item, in real time, across the networks you've armed.</p>
           </article>
-          <article class="card" data-reveal style="--d:4">
+          <article class="panel card" data-reveal style="--d:4">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">05</span>
             <h3>Multi-wallet</h3>
             <p>Generate fresh wallets or import your own. Fund them, run them together, and sweep everything back to one address when you're done.</p>
           </article>
-          <article class="card" data-reveal style="--d:5">
+          <article class="panel card" data-reveal style="--d:5">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="card-idx">06</span>
-            <h3>Listings &amp; offers</h3>
+            <h3>Mass-list &amp; accept offers</h3>
             <p>List your items or accept the top offer across every wallet at once — no per-wallet babysitting.</p>
           </article>
         </div>
@@ -145,18 +185,26 @@
     <!-- HOW IT WORKS -->
     <section id="how" class="section how">
       <div class="section-inner">
-        <p class="section-kicker" data-reveal>// three steps</p>
-        <h2 class="section-title" data-reveal style="--d:1">From chat to minted.</h2>
+        <header class="section-head">
+          <span class="section-no" data-reveal aria-hidden="true">02</span>
+          <div>
+            <p class="section-kicker" data-reveal>// three steps</p>
+            <h2 class="section-title" data-reveal style="--d:1">From chat to minted.</h2>
+          </div>
+        </header>
         <ol class="steps">
-          <li class="step" data-reveal>
+          <li class="panel step" data-reveal>
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="step-num">01</span>
             <div class="step-body"><h3>Get in</h3><p>Message the bot to pair. Access is gated, so it's not a public free-for-all.</p></div>
           </li>
-          <li class="step" data-reveal style="--d:1">
+          <li class="panel step" data-reveal style="--d:1">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="step-num">02</span>
             <div class="step-body"><h3>Load wallets</h3><p>Generate or import keys, then fund them in a few taps. You stay in control of every wallet.</p></div>
           </li>
-          <li class="step" data-reveal style="--d:2">
+          <li class="panel step" data-reveal style="--d:2">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
             <span class="step-num">03</span>
             <div class="step-body"><h3>Run it</h3><p>Choose the drop, the chain, the mode and the time. SpeedX does the rest and reports back.</p></div>
           </li>
@@ -167,21 +215,68 @@
     <!-- NETWORKS -->
     <section id="networks" class="section networks">
       <div class="section-inner">
-        <p class="section-kicker" data-reveal>// coverage</p>
-        <h2 class="section-title" data-reveal style="--d:1">Every network OpenSea supports.</h2>
+        <header class="section-head">
+          <span class="section-no" data-reveal aria-hidden="true">03</span>
+          <div>
+            <p class="section-kicker" data-reveal>// coverage</p>
+            <h2 class="section-title" data-reveal style="--d:1">Every network OpenSea supports.</h2>
+          </div>
+        </header>
         <p class="section-lead" data-reveal style="--d:1">One bot, not one chain. If a collection lists on OpenSea, SpeedX can mint and trade it — and new networks come online as OpenSea adds them.</p>
         <ul class="net-grid" data-reveal style="--d:2">
-          <li><span class="net-dot" style="--c:#627eea"></span>Ethereum</li>
-          <li><span class="net-dot" style="--c:#0052ff"></span>Base</li>
-          <li><span class="net-dot" style="--c:#8247e5"></span>Polygon</li>
-          <li><span class="net-dot" style="--c:#28a0f0"></span>Arbitrum</li>
-          <li><span class="net-dot" style="--c:#ff0420"></span>Optimism</li>
-          <li><span class="net-dot" style="--c:#000000"></span>Zora</li>
-          <li><span class="net-dot" style="--c:#fcfc03"></span>Blast</li>
-          <li><span class="net-dot" style="--c:#13b5ec"></span>Avalanche</li>
-          <li><span class="net-dot" style="--c:#6c5ce7"></span>Sei</li>
-          <li><span class="net-dot" style="--c:#2ad8ff"></span>+ more</li>
+          <li><span class="net-i">01</span>Ethereum</li>
+          <li><span class="net-i">02</span>Base</li>
+          <li><span class="net-i">03</span>Polygon</li>
+          <li><span class="net-i">04</span>Arbitrum</li>
+          <li><span class="net-i">05</span>Optimism</li>
+          <li><span class="net-i">06</span>Zora</li>
+          <li><span class="net-i">07</span>Blast</li>
+          <li><span class="net-i">08</span>Avalanche</li>
+          <li><span class="net-i">09</span>Sei</li>
+          <li class="more"><span class="net-i">··</span>+ more</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="section pricing">
+      <div class="section-inner">
+        <header class="section-head">
+          <span class="section-no" data-reveal aria-hidden="true">04</span>
+          <div>
+            <p class="section-kicker" data-reveal>// premium</p>
+            <h2 class="section-title" data-reveal style="--d:1">Pick a tier. Pay in USDC on Base.</h2>
+          </div>
+        </header>
+        <p class="section-lead" data-reveal style="--d:1">Premium unlocks the full kit. Settle in seconds with USDC on Base — no card, no account.</p>
+        <div class="price-grid">
+          <article class="panel price" data-reveal>
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
+            <p class="price-name">// daily</p>
+            <p class="price-amt"><span class="price-cur">$</span>5</p>
+            <p class="price-per">per day · USDC on Base</p>
+            <p class="price-note">Best for a single drop or a quick test run.</p>
+          </article>
+          <article class="panel price is-pop" data-reveal style="--d:1">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
+            <span class="price-tag">SAVE 29%</span>
+            <p class="price-name">// weekly</p>
+            <p class="price-amt"><span class="price-cur">$</span>25</p>
+            <p class="price-per">per week · USDC on Base</p>
+            <p class="price-note">For an active week of mints and sweeps.</p>
+          </article>
+          <article class="panel price" data-reveal style="--d:2">
+            <span class="tick-tl" aria-hidden="true"></span><span class="tick-br" aria-hidden="true"></span>
+            <span class="price-tag price-tag-dim">SAVE 47%</span>
+            <p class="price-name">// monthly</p>
+            <p class="price-amt"><span class="price-cur">$</span>80</p>
+            <p class="price-per">per month · USDC on Base</p>
+            <p class="price-note">The full season — best value for power users.</p>
+          </article>
+        </div>
+        <div class="price-cta" data-reveal style="--d:3">
+          <a class="btn btn-primary" href="https://t.me/speedxonseabot">Open bot to subscribe →</a>
+        </div>
       </div>
     </section>
 
@@ -189,6 +284,7 @@
     <section id="security" class="section security">
       <div class="section-inner sec-grid">
         <div class="sec-copy" data-reveal>
+          <span class="section-no" aria-hidden="true">05</span>
           <p class="section-kicker">// custody</p>
           <h2 class="section-title">Your keys. Your funds. Your call.</h2>
           <p class="section-lead">SpeedX is a tool, not a custodian. It never takes ownership of your assets — you hold the keys and you trigger every action.</p>
@@ -205,13 +301,18 @@
     <!-- FAQ -->
     <section id="faq" class="section faq">
       <div class="section-inner">
-        <p class="section-kicker" data-reveal>// questions</p>
-        <h2 class="section-title" data-reveal style="--d:1">Before you ask.</h2>
+        <header class="section-head">
+          <span class="section-no" data-reveal aria-hidden="true">06</span>
+          <div>
+            <p class="section-kicker" data-reveal>// questions</p>
+            <h2 class="section-title" data-reveal style="--d:1">Before you ask.</h2>
+          </div>
+        </header>
         <div class="faq-list" data-reveal style="--d:1">
           <details class="qa"><summary>Which networks does it support?</summary><p>Every network OpenSea supports — Ethereum, Base, Polygon, Arbitrum, Optimism, Zora, Blast, Avalanche, Sei and more. As OpenSea adds chains, SpeedX follows.</p></details>
           <details class="qa"><summary>Do you hold my keys or funds?</summary><p>No. SpeedX is non-custodial. You generate or import your own keys and you control every wallet. Nothing is held on your behalf.</p></details>
           <details class="qa"><summary>How do I get access?</summary><p>Access is gated. Message <a href="https://t.me/speedxonseabot">@speedxonseabot</a> to pair — it's approved, not an open free-for-all.</p></details>
-          <details class="qa"><summary>What does it cost?</summary><p>You pay the mint price and network gas, same as minting yourself. SpeedX automates the speed and the multi-wallet logistics around it.</p></details>
+          <details class="qa"><summary>What does premium cost?</summary><p>Daily $5, weekly $25 (save 29%) or monthly $80 (save 47%), paid in USDC on Base. On top of that you pay the mint price and network gas, same as minting yourself.</p></details>
           <details class="qa"><summary>Is this risk-free?</summary><p>No. Minting and trading carry real financial risk, and you're responsible for your own keys and transactions. Use what you can afford to lose.</p></details>
         </div>
       </div>
@@ -219,10 +320,12 @@
 
     <!-- CTA -->
     <section class="cta">
+      <div class="speedgrid speedgrid-cta" aria-hidden="true"></div>
       <div class="cta-inner" data-reveal>
+        <p class="section-kicker">// ready</p>
         <h2>Ready when the next drop is.</h2>
         <p>The bot lives on Telegram and runs across every OpenSea network. If you've got access, open it. If you don't, ask.</p>
-        <a class="btn btn-primary btn-lg" href="https://t.me/speedxonseabot">Open in Telegram</a>
+        <a class="btn btn-primary btn-lg" href="https://t.me/speedxonseabot">Open bot →</a>
       </div>
     </section>
   </main>
@@ -231,17 +334,21 @@
     <div class="footer-inner">
       <div class="footer-top">
         <a class="brand" href="#top">
-          <img class="brand-mark" src="assets/logo-bolt.png" alt="" width="30" height="30" />
-          <span class="brand-text">SpeedX<span class="brand-sub">on&nbsp;sea</span></span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 32" width="20" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.5 0 0 18.5h8.2L6 32 24 11.5h-9.4L18 0z" fill="#3B8CFF"/>
+            </svg>
+          </span>
+          <span class="brand-text">SpeedX<span class="brand-sub">/ on&nbsp;sea</span></span>
         </a>
         <nav class="footer-nav">
           <a href="#features">Features</a><a href="#networks">Networks</a>
-          <a href="#security">Security</a><a href="#faq">FAQ</a>
+          <a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
           <a href="https://t.me/speedxonseabot">@speedxonseabot ↗</a>
         </nav>
       </div>
       <p class="footer-disclaimer">Not affiliated with OpenSea or any network. Minting and trading carry risk; you're responsible for your own keys and transactions.</p>
-      <p class="footer-copy">© SpeedX on Sea — a multi-chain mint tool for OpenSea collectors.</p>
+      <p class="footer-copy">© SpeedX on Sea — a multi-chain mint &amp; trade tool for OpenSea collectors.</p>
     </div>
   </footer>
 
@@ -258,6 +365,81 @@
         entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
       }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
       items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+  <script>
+    /* Scroll-scrubbed 3D bolt: scroll position drives the rotation frame. */
+    (function () {
+      var canvas = document.getElementById('heroBolt');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var FRAMES = 48;
+      var frames = [];
+      var loaded = 0;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+      // Crisp on HiDPI: size the backing store to devicePixelRatio.
+      function fit() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var cssW = canvas.clientWidth || 360;
+        var cssH = canvas.clientHeight || 360;
+        canvas.width = Math.round(cssW * dpr);
+        canvas.height = Math.round(cssH * dpr);
+      }
+
+      var current = -1;
+      function draw(i) {
+        var img = frames[i];
+        if (!img || !img.complete || !img.naturalWidth) return;
+        current = i;
+        window.__heroFrame = i;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      }
+
+      // Map scroll position to a looping frame index over one viewport-ish range.
+      function frameForScroll() {
+        var range = window.innerHeight * 1.6;
+        var t = window.scrollY / range;            // 0..n
+        var idx = Math.round(t * (FRAMES - 1));     // advance with scroll
+        idx = ((idx % FRAMES) + FRAMES) % FRAMES;   // loop both directions
+        return idx;
+      }
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking || reduce) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var i = frameForScroll();
+          if (i !== current) draw(i);
+          ticking = false;
+        });
+      }
+
+      function start() {
+        fit();
+        if (reduce) { draw(0); return; }
+        draw(frameForScroll());
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', function () { fit(); draw(current < 0 ? 0 : current); }, { passive: true });
+      }
+
+      for (var i = 0; i < FRAMES; i++) {
+        (function (n) {
+          var img = new Image();
+          img.onload = function () {
+            loaded++;
+            if (loaded === 1) start();        // show first available frame asap
+            if (n === current) draw(n);        // refresh if this was the target
+          };
+          img.src = 'assets/bolt-frames/f' + pad(n) + '.png';
+          frames[n] = img;
+        })(i);
+      }
     })();
   </script>
 </body>
