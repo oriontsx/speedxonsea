@@ -33,7 +33,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.85;
+renderer.toneMappingExposure = 0.98;
 
 // --- Lightning bolt mesh ---
 const pts = [
@@ -52,27 +52,28 @@ for (let i = 1; i < pts.length; i++) {
 shape.closePath();
 
 const extrudeSettings = {
-  depth: 0.4,
+  depth: 0.95,
   bevelEnabled: true,
-  bevelThickness: 0.06,
-  bevelSize: 0.05,
-  bevelSegments: 3,
+  bevelThickness: 0.14,
+  bevelSize: 0.1,
+  bevelSegments: 4,
 };
 const boltGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
 boltGeo.center();
 
+// Lit metallic body so the lights model the 3D form (low emissive => not flat).
 const boltMat = new THREE.MeshStandardMaterial({
-  color: 0x0a1a3a,
+  color: 0x14305f,
   emissive: new THREE.Color(0x2a5cff),
-  emissiveIntensity: 1.15,
-  metalness: 0.7,
-  roughness: 0.25,
+  emissiveIntensity: 0.42,
+  metalness: 0.85,
+  roughness: 0.32,
 });
 
 const bolt = new THREE.Mesh(boltGeo, boltMat);
-bolt.scale.setScalar(2.4);
+bolt.scale.setScalar(2.2);
 bolt.rotation.z = -0.12;
-bolt.rotation.x = 0.18;
+bolt.rotation.x = 0.42;
 scene.add(bolt);
 
 // Additive glow halo behind the bolt (fallback glow + depth even with bloom)
@@ -99,14 +100,18 @@ halo.scale.set(7, 8, 1);
 halo.position.z = -1;
 scene.add(halo);
 
-// --- Lighting ---
-scene.add(new THREE.AmbientLight(0x223355, 0.6));
-const blueLight = new THREE.PointLight(0x0052ff, 60, 30);
-blueLight.position.set(-4, 3, 5);
+// --- Lighting (low ambient + strong keys so the 3D form/edges read) ---
+scene.add(new THREE.AmbientLight(0x1a2540, 0.35));
+const blueLight = new THREE.PointLight(0x2a6bff, 110, 40);
+blueLight.position.set(-5, 3, 6);
 scene.add(blueLight);
-const cyanLight = new THREE.PointLight(0x4d9bff, 55, 30);
-cyanLight.position.set(4, -2, 4);
+const cyanLight = new THREE.PointLight(0x4d9bff, 90, 40);
+cyanLight.position.set(4, -2, 5);
 scene.add(cyanLight);
+// bright key light for specular highlights on the metal edges => clear 3D depth
+const keyLight = new THREE.PointLight(0xdce8ff, 80, 45);
+keyLight.position.set(3, 6, 7);
+scene.add(keyLight);
 
 // --- Drifting ember/particle field for depth ---
 const particleCount = 140;
@@ -199,12 +204,14 @@ function animate() {
 
   // Idle slow Y rotation + scroll-driven turn
   bolt.rotation.y = t * 0.18 + scrollNorm * 0.9;
+  // Constant tilt + gentle wobble so the extruded depth always reads as 3D
+  bolt.rotation.x = 0.42 + Math.sin(t * 0.4) * 0.12;
   window.__boltRotY = bolt.rotation.y;
   // Subtle breathing pulse
-  const pulse = 2.4 + Math.sin(t * 1.3) * 0.04;
+  const pulse = 2.2 + Math.sin(t * 1.3) * 0.04;
   bolt.scale.setScalar(pulse);
-  // Emissive flicker
-  boltMat.emissiveIntensity = 1.15 + Math.sin(t * 2.2) * 0.2;
+  // Emissive flicker (low base so the lighting models the form, not a flat glow)
+  boltMat.emissiveIntensity = 0.42 + Math.sin(t * 2.2) * 0.12;
 
   // Parallax drift on scroll
   bolt.position.y = scrollNorm * 0.6;
