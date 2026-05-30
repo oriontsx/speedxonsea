@@ -61,16 +61,24 @@ const extrudeSettings = {
 const boltGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
 boltGeo.center();
 
-// Lit metallic body so the lights model the 3D form (low emissive => not flat).
-const boltMat = new THREE.MeshStandardMaterial({
-  color: 0x14305f,
-  emissive: new THREE.Color(0x2a5cff),
-  emissiveIntensity: 0.42,
-  metalness: 0.85,
-  roughness: 0.32,
+// Match the logo: icy-cyan body (front/back caps) with blue outline edges (side
+// walls + bevel). ExtrudeGeometry uses material index 0 for the caps, 1 for the sides.
+const bodyMat = new THREE.MeshStandardMaterial({
+  color: 0x0a2a4a,
+  emissive: new THREE.Color(0xb8efff), // pale icy cyan body
+  emissiveIntensity: 0.7,
+  metalness: 0.35,
+  roughness: 0.34,
+});
+const edgeMat = new THREE.MeshStandardMaterial({
+  color: 0x0a1633,
+  emissive: new THREE.Color(0x2a6bff), // blue outline / depth
+  emissiveIntensity: 1.0,
+  metalness: 0.8,
+  roughness: 0.3,
 });
 
-const bolt = new THREE.Mesh(boltGeo, boltMat);
+const bolt = new THREE.Mesh(boltGeo, [bodyMat, edgeMat]);
 bolt.scale.setScalar(2.2);
 bolt.rotation.z = -0.12;
 bolt.rotation.x = 0.42;
@@ -210,8 +218,8 @@ function animate() {
   // Subtle breathing pulse
   const pulse = 2.2 + Math.sin(t * 1.3) * 0.04;
   bolt.scale.setScalar(pulse);
-  // Emissive flicker (low base so the lighting models the form, not a flat glow)
-  boltMat.emissiveIntensity = 0.42 + Math.sin(t * 2.2) * 0.12;
+  // Gentle body glow flicker (cyan caps); blue edges stay steady
+  bodyMat.emissiveIntensity = 0.7 + Math.sin(t * 2.2) * 0.12;
 
   // Parallax drift on scroll
   bolt.position.y = scrollNorm * 0.6;
